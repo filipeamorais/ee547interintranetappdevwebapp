@@ -1,0 +1,14 @@
+size: 
+1/4 lb
+1/2 lb
+1 lb
+
+Grind:
+Whole Bean
+Percolator
+Gold filter
+French press
+Espresso
+Paper filter
+
+Roast Degree Indicator - 10 levels

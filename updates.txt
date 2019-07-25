@@ -1,0 +1,4 @@
+20190724
+Working on the products presentation on the index page.
+Make it generic for as many products that are in the database.
+Make a query that aggregates all the products information and then fill the page through the variables.

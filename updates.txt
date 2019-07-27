@@ -8,3 +8,7 @@ It is connecting to the database.
 
 20190727
 It is retrieving data and showing on the screen.
+
+I will have to fill the database with more products and change the pictures.
+I will have to prepare and set properly the product detail page.
+I will also have to customize all the texts and links all over.

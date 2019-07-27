@@ -1,172 +1,248 @@
-<?php
-	include("admin/php/connect_to_mysql.php");
-	include("admin/php/myFunctions.php");
-	
-	$prodID = $_GET['prodid'];
-	$prodAvail = "";
-	$txtQuanDisable = "";
-	$otherProdList = "";
-	$otherProdCtr = 0;
-	if(!empty($prodID)){
-		$sqlSelectSpecProd = mysql_query("select * from tblproduct where prod_id = '$prodID'") or die(mysql_error());
-		$getProdInfo = mysql_fetch_array($sqlSelectSpecProd);
-		$prodNo = $getProdInfo["prod_no"];
-		$prodid = $getProdInfo["prod_id"];
-		$prodName = $getProdInfo["prod_name"];
-		$prodDescr = $getProdInfo["prod_descr"];
-		$prodCat = $getProdInfo["prod_cat"];
-		$prodPrice = $getProdInfo["prod_price"];
-		$prodQuan = $getProdInfo["prod_quan"];
-		
-		if($prodQuan >= 1){
-			$prodAvail = "In Stock";
-		}
-		else{
-			$prodAvail = "Out of Stock";
-			$txtQuanDisable = "disabled";
-		}
-		$sqlSelectOtherProduct = mysql_query("select * from tblproduct order by date_added desc") or die(mysql_error());
-		$sqlCountOtherProduct = mysql_num_rows($sqlSelectOtherProduct);
-		if($sqlCountOtherProduct >=1 ){
-			while($getOtherProductInfo = mysql_fetch_array($sqlSelectOtherProduct)){
-				$otherProdNo = $getOtherProductInfo["prod_no"];
-				$otherProdId = $getOtherProductInfo["prod_id"];
-				$otherProdName = $getOtherProductInfo["prod_name"];
-				$otherProdPrice = $getOtherProductInfo["prod_price"];
-				
-				$otherProdList .= '<div class="col col_14 product_gallery">
-				<a href="productdetail.php?prodid='.$otherProdId.'"><img src="images/product/'.$otherProdNo.'.jpg" width="170" height="150"" /></a>
-				<h3>'.$otherProdName.'</h3>
-				<p class="product_price">Php '.$otherProdPrice.'</p>
-				<a href="shoppingcart.php?prodid='.$otherProdId.'" class="add_to_cart">Add to Cart</a></div>';
-				
-				if(++$otherProdCtr >= 3){
-					$otherProdList .= '<a href="index.php" class="more float_r">View all</a>';
-					break;
-				}
-			}
-		}
-	}
-?>
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
-<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Dadads Store</title>
-<link href="css/slider.css" rel="stylesheet" type="text/css" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Roots Coffee - The online coffee shop store</title>
+    <link href="css/slider.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="css/ddsmoothmenu.css" />
+    <link rel="stylesheet" type="text/css" href="css/styles.css" />
 
-<link rel="stylesheet" type="text/css" href="css/ddsmoothmenu.css" />
+    <script language="javascript" type="text/javascript" src="scripts/mootools-1.2.1-core.js"></script>
+    <script language="javascript" type="text/javascript" src="scripts/mootools-1.2-more.js"></script>
+    <script language="javascript" type="text/javascript" src="scripts/slideitmoo-1.1.js"></script>
+    <script language="javascript" type="text/javascript">
+        window.addEvents({
+            'domready': function() {
+                /* thumbnails example , div containers */
+                new SlideItMoo({
+                    overallContainer: 'SlideItMoo_outer',
+                    elementScrolled: 'SlideItMoo_inner',
+                    thumbsContainer: 'SlideItMoo_items',
+                    itemsVisible: 5,
+                    elemsSlide: 2,
+                    duration: 200,
+                    itemsSelector: '.SlideItMoo_element',
+                    itemWidth: 171,
+                    showControls: 1
+                });
+            },
 
-<link rel="stylesheet" type="text/css" href="css/styles.css" />
+        });
 
-<script language="javascript" type="text/javascript">
-
-	function clearText(field)
-	{
-		if (field.defaultValue == field.value) field.value = '';
-		else if (field.value == '') field.value = field.defaultValue;
-	}
-</script>
+        function clearText(field) {
+            if (field.defaultValue == field.value) field.value = '';
+            else if (field.value == '') field.value = field.defaultValue;
+        }
+    </script>
 
 </head>
 
 <body id="subpage">
 
-<div id="main_wrapper">
-	<div id="main_header">
-    	<div id="site_title"><h1><a href="#" rel="nofollow">Dadads Store</a></h1></div>
-        
-        <div id="header_right">
-            <div id="main_search">
-                <form action="products.php" method="get" name="search_form">
-                  <input type="text" value="Search" name="keyword" onfocus="clearText(this)" onblur="clearText(this)" class="txt_field" />
-                  <input type="submit" name="Search" value="" alt="Search" id="searchbutton" title="Search" class="sub_btn"  />
-                </form>
+    <div id="templatemo_wrapper">
+        <div id="templatemo_header">
+            <div id="site_title">
+                <h1><a href="http://www.templatemo.com" rel="nofollow">Free CSS Templates</a></h1>
             </div>
-         </div> <!-- END -->
-    </div> <!-- END of header -->
-    
-    <div id="main_menu" class="ddsmoothmenu">
-        <ul>
-            <li><a href="index.php">Home</a></li>
-            <li><a href="products.php" class="selected">Products</a></li>
-            <li><a href="shoppingcart.php">Cart</a></li>
-            <li><a href="checkout.php">Checkout</a></li>
-            <li><a href="about.php">About</a></li>
-        </ul>
-        <br style="clear: left" />
-    </div> <!-- end of menu -->
-    
-    <div class="cleaner h20"></div>
-    <div id="main_top"></div>
-    <div id="main">
-    	
-        <div id="sidebar">
-            <h3>Categories</h3>
-            <ul class="sidebar_menu">
-                <li><a href="index.php?cat=juice">Juice</a></li>				
-                <li><a href="index.php?cat=junkfood">Junk Food</a></li>
-                <li><a href="index.php?cat=dessert sprinkler">Dessert Sprinkler</a></li>
-		</ul>
-        </div> <!-- END of sidebar -->
-        
-        <div id="content">
-        	<h2>Product Details</h2>
-            <div class="col col_13">
-		<a href="images/product/<?php echo $prodNo; ?>.jpg" title="Lady Shoes"><img src="images/product/<?php echo $prodNo; ?>.jpg" style="width:250px; height: 210px; margin-left:15px; border: 2px double;" alt="Image 10" /></a>
+
+           <div id="header_right">
+                <ul id="language">
+                    <li>
+                        <a><img src="images/usa.png" alt="English" /></a>
+                    </li>
+                    <li>
+                        <a><img src="images/china.png" alt="Chinese" /></a>
+                    </li>
+                    <li>
+                        <a><img src="images/germany.png" alt="Germany" /></a>
+                    </li>
+                    <li>
+                        <a><img src="images/brazil.png" alt="Brazilian" /></a>
+                    </li>
+                </ul>
+                <div class="cleaner"></div>
+                <div id="templatemo_search">
+                    <form action="#" method="get">
+                        <input type="text" value="Search" name="keyword" id="keyword" title="keyword" onfocus="clearText(this)" onblur="clearText(this)" class="txt_field" />
+                        <input type="submit" name="Search" value="" alt="Search" id="searchbutton" title="Search" class="sub_btn" />
+                    </form>
+                </div>
+            </div> <!-- END -->
+        </div> <!-- END of header -->
+
+        <div id="templatemo_menu" class="ddsmoothmenu">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="products.html" class="selected">Products</a>
+                    <ul>
+                        <li><a href="#">Sub menu 1</a></li>
+                        <li><a href="#">Sub menu 2</a></li>
+                        <li><a href="#">Sub menu 3</a></li>
+                    </ul>
+                </li>
+                <li><a href="about.html">About</a>
+                    <ul>
+                        <li><a href="#">Sub menu 1</a></li>
+                        <li><a href="#">Sub menu 2</a></li>
+                        <li><a href="#">Sub menu 3</a></li>
+                        <li><a href="#">Sub menu 4</a></li>
+                        <li><a href="#">Sub menu 5</a></li>
+                    </ul>
+                </li>
+                <li><a href="faqs.html">FAQs</a></li>
+                <li><a href="checkout.html">Checkout</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <br style="clear: left" />
+        </div> <!-- end of templatemo_menu -->
+
+        <div class="cleaner h20"></div>
+        <div id="templatemo_main_top"></div>
+        <div id="templatemo_main">
+
+            <div id="sidebar">
+                <h3>Categories</h3>
+                <ul class="sidebar_menu">
+                    <li><a href="#">Aenean et dolor diam</a></li>
+                    <li><a href="#">Aenean pulvinar</a></li>
+                    <li><a href="#">Cras bibendum auctor</a></li>
+                    <li><a href="#">Donec sodales bibendum</a></li>
+                    <li><a href="#">Etiam in tellus</a></li>
+                    <li><a href="#">Hendrerit justo</a></li>
+                    <li><a href="#">Integer interdum</a></li>
+                    <li><a href="#">Maecenas a diam</a></li>
+                    <li><a href="#">Nullam in semper</a></li>
+                    <li><a href="#">Posuere in commodo</a></li>
+                    <li><a href="#">Tincidunt leo</a></li>
+                    <li><a href="#">Vestibulum blandit</a></li>
+                </ul>
+                <h3><a class="sidebar_title" href="http://pt.mystockvector.com" title="vetores Free" target="_blank">Newsletter</a></h3>
+                <p>Praesent aliquam mi id tellus pretium pulvinar in vel ligula.</p>
+                <div id="newsletter">
+                    <form action="#" method="get">
+                        <input type="text" value="Subscribe" name="email_newsletter" id="email_newsletter" title="email_newsletter" onfocus="clearText(this)" onblur="clearText(this)" class="txt_field" />
+                        <input type="submit" name="subscribe" value="Subscribe" alt="Subscribe" id="subscribebtn" title="Subscribe" class="subscribebtn" />
+                    </form>
+                    <div class="cleaner"></div>
+                </div>
+            </div> <!-- END of sidebar -->
+
+            <div id="content">
+                <h2>Product Details</h2>
+                <div class="col col_13">
+                    <a rel="lightbox[portfolio]" href="images/product/10_l.jpg" title="Lady Shoes"><img src="images/product/10.jpg" alt="Image 10" /></a>
+                </div>
+                <div class="col col_13 no_margin_right">
+                    <table>
+                        <tr>
+                            <td height="30" width="160">Price:</td>
+                            <td>$100</td>
+                        </tr>
+                        <tr>
+                            <td height="30">Availability:</td>
+                            <td>In Stock</td>
+                        </tr>
+                        <tr>
+                            <td height="30">Model:</td>
+                            <td>Product 14</td>
+                        </tr>
+                        <tr>
+                            <td height="30">Manufacturer:</td>
+                            <td>Apple</td>
+                        </tr>
+                        <tr>
+                            <td height="30">Quantity</td>
+                            <td><input type="text" value="1" style="width: 20px; text-align: right" /></td>
+                        </tr>
+                    </table>
+                    <div class="cleaner h20"></div>
+                    <a href="shoppingcart.html" class="add_to_cart">Add to Cart</a>
+                </div>
+                <div class="cleaner h30"></div>
+
+                <h5><strong>Product Description</strong></h5>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur semper quam sit amet turpis rhoncus id venenatis tellus sollicitudin. Fusce ullamcorper, dolor non mollis pulvinar, turpis tortor commodo nisl, et semper lectus augue blandit tellus. Quisque id bibendum libero.</p>
+
+                <div class="cleaner h50"></div>
+
+                <h4>Other Products</h4>
+                <div class="col col_14 product_gallery">
+                    <a href="productdetail.html"><img src="images/product/01.jpg" alt="Product 01" /></a>
+                    <h3>Ut eu feugiat</h3>
+                    <p class="product_price">$ 100</p>
+                    <a href="shoppingcart.html" class="add_to_cart">Add to Cart</a>
+                </div>
+                <div class="col col_14 product_gallery">
+                    <a href="productdetail.html"><img src="images/product/02.jpg" alt="Product 02" /></a>
+                    <h3>Curabitur et turpis</h3>
+                    <p class="product_price">$ 200</p>
+                    <a href="shoppingcart.html" class="add_to_cart">Add to Cart</a>
+                </div>
+                <div class="col col_14 product_gallery no_margin_right">
+                    <a href="productdetail.html"><img src="images/product/03.jpg" alt="Product 03" /></a>
+                    <h3>Mauris consectetur</h3>
+                    <p class="product_price">$ 120</p>
+                    <a href="shoppingcart.html" class="add_to_cart">Add to Cart</a>
+                </div>
+                <a href="#" class="more float_r">View all</a>
+
+                <div class="cleaner"></div>
+            </div> <!-- END of content -->
+            <div class="cleaner"></div>
+        </div> <!-- END of main -->
+
+        <div id="templatemo_footer">
+            <div class="col col_16">
+                <h4>Categories</h4>
+                <ul class="footer_menu">
+                    <li><a href="#">Aenean et dolor diam</a></li>
+                    <li><a href="#">Aenean pulvinar</a></li>
+                    <li><a href="#">Cras bibendum auctor</a></li>
+                    <li><a href="#">Donec sodales bibendum</a></li>
+                </ul>
+            </div>
+            <div class="col col_16">
+                <h4>Pages</h4>
+                <ul class="footer_menu">
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Services</a></li>
+                    <li><a href="#">Shipping</a></li>
+                    <li><a href="#">Privacy</a></li>
+                </ul>
+            </div>
+            <div class="col col_16">
+                <h4>Partners</h4>
+                <ul class="footer_menu">
+                    <li><a rel="nofollow" href="http://www.flashmo.com/">Free Flash Templates</a></li>
+                    <li><a rel="nofollow" href="http://www.templatemo.com/">Free CSS Templates</a></li>
+                    <li><a href="http://www.koflash.com/">Website Gallery</a></li>
+                    <li><a href="http://www.webdesignmo.com/blog/">Web Design Resources</a></li>
+                </ul>
+            </div>
+            <div class="col col_16">
+                <h4>Social</h4>
+                <ul class="footer_menu">
+                    <li><a href="#">Twitter</a></li>
+                    <li><a href="#">Facebook</a></li>
+                    <li><a href="#">Youtube</a></li>
+                    <li><a href="#">LinkedIn</a></li>
+                </ul>
             </div>
             <div class="col col_13 no_margin_right">
-                <table>
-					<tr>
-						<td colspan="2" height="30" width="160"><br></td>
-					</tr>
-                    <tr>
-                        <td height="30" width="160">Price:</td>
-                        <td>Php <?php echo $prodPrice; ?></td>
-                    </tr>
-                    <tr>
-                        <td height="30">Availability:</td>
-                        <td><?php echo $prodAvail; ?></td>
-                    </tr>
-                    <tr>
-                        <td height="30">Name:</td>
-                        <td><?php echo $prodName; ?></td>
-                    </tr>
-                    <tr>
-                        <td height="30">Category:</td>
-                        <td><?php echo $prodCat; ?></td>
-                    </tr>
-                    <!-- <tr><td height="30">Quantity</td><td><input type="text" name="txtQuantity" value="1" style="width: 20px; text-align: right" /></td></tr> -->
-                </table>
-                <div class="cleaner h20"></div>
-                <a href="shoppingcart.php?prodid=<?php echo $prodid; ?>" class="add_to_cart">Add to Cart</a>
-			</div>
-            <div class="cleaner h30"></div>
-            
-            <h5><strong>Product Description</strong></h5>
-            <p><?php echo $prodDescr; ?></p>	
-            
-            <div class="cleaner h50"></div>
-            
-            <h4>Other Products</h4>
-	    <?php echo $otherProdList; ?>    
-            <div class="cleaner"></div>
-        </div> <!-- END of content -->
-        <div class="cleaner"></div>
-    </div> <!-- END of main -->
-    
-    <div id="main_footer">   
-        <div class="cleaner h40"></div>
-		<center>
-			Copyright © 2048 Your Company Name
-		</center>
-    </div> <!-- END of footer -->   
-   
-</div>
+                <h4>About Us</h4>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur semper quam sit amet turpis rhoncus id venenatis tellus sollicitudin. Fusce ullamcorper, dolor non mollis pulvinar, turpis tortor commodo nisl. Validate <a href="http://validator.w3.org/check?uri=referer" rel="nofollow"><strong>XHTML</strong></a> &amp; <a href="http://jigsaw.w3.org/css-validator/check/referer" rel="nofollow"><strong>CSS</strong></a>.</p>
+            </div>
+
+            <div class="cleaner h40"></div>
+            <center>
+                Copyright © 2048 Your Company Name | Designed by <a href="http://www.templatemo.com" rel="nofollow" target="_parent">Free CSS Templates</a>
+            </center>
+        </div> <!-- END of footer -->
+
+    </div>
 
 
-<script type='text/javascript' src='js/logging.js'></script>
+    <script type='text/javascript' src='js/logging.js'></script>
 </body>
+
 </html>

@@ -187,7 +187,7 @@
             while ($allTheProductsRow = mysqli_fetch_assoc($resultAllTheProducts)) {
             echo "<div id=\"content\">";
             echo "<div class=\"col col_14 product_gallery\">";
-            echo "<a href=\"productdetail.html\"><img src=\"images/product/01.jpg\" alt=\"Product 01\" /></a>";
+            echo "<a href=\"productdetail.html\"><img src=\"images/product/".$allTheProductsRow['prod_no'].".jpg\" alt=\"Product 01\" /></a>";
             echo "<h3>".$allTheProductsRow['prod_name']."</h3>";
             echo "<p class=\"product_price\">".$allTheProductsRow['prod_price']."</p>";
             echo "<a href=\"shoppingcart.html\" class=\"add_to_cart\">Add to Cart</a>";

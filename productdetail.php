@@ -130,8 +130,33 @@
             <div id="content">
                 <h2>Product Details</h2>
                 <div class="col col_13">
-                    <a rel="lightbox[portfolio]" href="images/product/10_l.jpg" title="Lady Shoes"><img src="images/product/10.jpg" alt="Image 10" /></a>
-                </div>
+            <?php
+            include 'rootsdb.inc';
+
+            $connection = mysqli_connect($host, $user, $password, $database);
+            
+            if (mysqli_connect_errno()) {
+              die(mysqli_connect_error());    // not production error handling
+            }
+            $prod_no = $_GET["prod_no"];
+            $sqlSelectSpecificProduct = "SELECT * FROM tblproduct WHERE prod_no=".$prod_no."";
+            $resultSpecificProduct = mysqli_query($connection, $sqlSelectSpecificProduct);
+            $specificProductsRow = mysqli_fetch_assoc($resultSpecificProduct);
+            echo('<a rel="lightbox[portfolio]" href="images/product/'.$specificProductsRow['prod_no'].'.jpg" title="'.$specificProductsRow['prod_name'].'"><img src="images/product/'.$specificProductsRow['prod_no'].'.jpg" alt="Image '.$specificProductsRow['prod_name'].'" /></a>');
+            echo('</div>');
+            echo('<div class="col col_13 no_margin_right">');
+            echo('<table>');
+            echo('<tr><td height="30" width="160">Price:</td><td>$100</td></tr>');
+            echo('<tr><td height="30">Availability:</td><td>In Stock</td></tr><tr></tr>');
+            echo('<tr><td height="30">Model:</td><td>Product 14</td></tr>');
+            echo('<tr><td height="30">Manufacturer:</td><td>Apple</td></tr>');
+            echo('<tr><td height="30">Quantity</td><td><input type="text" value="1" style="width: 20px; text-align: right" /></td></tr>');
+            ?>
+
+            
+                
+                    
+                <!-- </div>
                 <div class="col col_13 no_margin_right">
                     <table>
                         <tr>
@@ -153,7 +178,7 @@
                         <tr>
                             <td height="30">Quantity</td>
                             <td><input type="text" value="1" style="width: 20px; text-align: right" /></td>
-                        </tr>
+                        </tr> -->
                     </table>
                     <div class="cleaner h20"></div>
                     <a href="shoppingcart.html" class="add_to_cart">Add to Cart</a>

@@ -56,10 +56,16 @@
         }
     </script>
     <?php
+    include 'rootsdb.inc';
+    $connection = mysqli_connect($host, $user, $password, $database);
+            
+    if (mysqli_connect_errno()) {
+      die(mysqli_connect_error());    // not production error handling
+    }
     session_start();
     if (isset($_POST['prod_no']) && $_POST['prod_no']!=""){
-        $prod_no = $_POST['code'];
-        $result = mysqli_query($con,"SELECT * FROM `products` WHERE `prod_no`='$prod_no'");
+        $prod_no = $_POST['prod_no'];
+        $result = mysqli_query($connection,"SELECT * FROM `tblproduct` WHERE `prod_no`='$prod_no'");
         $row = mysqli_fetch_assoc($result);
         $name = $row['prod_name'];
         $code = $row['prod_no'];
@@ -227,7 +233,8 @@
             echo '<h3>'.$allTheProductsRow["prod_name"].'</h3>';
             echo "<p class=\"product_price\">".$allTheProductsRow['prod_price']."</p>
             <input type='hidden' name='prod_no' value=".$allTheProductsRow['prod_no']." />";
-            echo '<a href="shoppingcart.html" onclick="document.getElementById("form1").submit(); return false;" class="add_to_cart">Add to Cart</a>';
+            echo ' <button type="submit" class="buy">Buy Now</button>
+            <a href="shoppingcart.php" onclick="document.getElementById("form1").submit(); return false;" class="add_to_cart">Add to Cart</a>';
             echo "</div></form>";
             }
             ?>

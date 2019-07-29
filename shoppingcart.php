@@ -61,6 +61,41 @@
             }
         }
     }
+
+    if (isset($_POST['prod_no']) && $_POST['prod_no']!=""){
+        $prod_no = $_POST['code'];
+        $result = mysqli_query($con,"SELECT * FROM `products` WHERE `prod_no`='$prod_no'");
+        $row = mysqli_fetch_assoc($result);
+        $name = $row['prod_name'];
+        $code = $row['prod_no'];
+        $price = $row['prod_price'];
+         
+        $cartArray = array(
+         $code=>array(
+         'name'=>$name,
+         'code'=>$code,
+         'price'=>$price,
+         'quantity'=>1)
+        );
+         
+        if(empty($_SESSION["shopping_cart"])) {
+            $_SESSION["shopping_cart"] = $cartArray;
+            $status = "<div class='box'>Product is added to your cart!</div>";
+        }else{
+            $array_keys = array_keys($_SESSION["shopping_cart"]);
+            if(in_array($code,$array_keys)) {
+         $status = "<div class='box' style='color:red;'>
+         Product is already added to your cart!</div>"; 
+            } else {
+            $_SESSION["shopping_cart"] = array_merge(
+            $_SESSION["shopping_cart"],
+            $cartArray
+            );
+            $status = "<div class='box'>Product is added to your cart!</div>";
+         }
+         
+         }
+        }
     ?>
 
 </head>
@@ -159,22 +194,48 @@
                         <th width="90"> </th>
 
                     </tr>
-                    <tr>
-                        <td><img src="images/product/01.jpg" alt="image 01" /></td>
-                        <td>Etiam in tellus</td>
-                        <td align="center"><input type="text" value="1" style="width: 20px; text-align: right" /> </td>
-                        <td align="right">$100 </td>
-                        <td align="right">$100 </td>
-                        <td align="center"> <a href="#"><img src="images/remove_x.gif" alt="remove" /><br />Remove</a> </td>
-                    </tr>
-                    <tr>
-                        <td><img src="images/product/02.jpg" alt="image 02" /> </td>
-                        <td>Hendrerit justo</td>
-                        <td align="center"><input type="text" value="1" style="width: 20px; text-align: right" /> </td>
-                        <td align="right">$40 </td>
-                        <td align="right">$40 </td>
-                        <td align="center"> <a href="#"><img src="images/remove_x.gif" alt="remove" /><br />Remove</a> </td>
-                    </tr>
+                    <?php
+                    if (isset($_SESSION["shopping_cart"])) {
+                        $total_price = 0;
+                        foreach ($_SESSION["shopping_cart"] as $product) {
+                            ?>
+                            <tr>
+                                <td><img src="images/product/'<?php echo $product["prod_no"]; ?>'.jpg" alt="image 01" /></td>
+                                <td><?php echo $product["prod_name"]; ?></td>
+                                <td align="center"><input type="text" value="1" style="width: 20px; text-align: right" /> </td>
+                                <td>
+                                    <form method='post' action=''>
+                                        <input type='hidden' name='code' value="<?php echo $product["code"]; ?>" />
+                                        <input type='hidden' name='action' value="change" />
+                                        <select name='quantity' class='quantity' onChange="this.form.submit()">
+                                            <option <?php if ($product["quantity"] == 1) echo "selected"; ?>value="1">1</option>
+                                            <option <?php if ($product["quantity"] == 2) echo "selected"; ?>value="2">2</option>
+                                            <option <?php if ($product["quantity"] == 3) echo "selected"; ?>value="3">3</option>
+                                            <option <?php if ($product["quantity"] == 4) echo "selected"; ?>value="4">4</option>
+                                            <option <?php if ($product["quantity"] == 5) echo "selected"; ?>value="5">5</option>
+                                        </select>
+                                    </form>
+                                </td>
+                                <td align="right">$100 </td>
+                                <td align="center"> <a href="#"><img src="images/remove_x.gif" alt="remove" /><br />Remove</a> </td>
+                            </tr>
+                            <tr>
+                                <td><img src="images/product/02.jpg" alt="image 02" /> </td>
+                                <td>Hendrerit justo</td>
+                                <td align="center"><input type="text" value="1" style="width: 20px; text-align: right" /> </td>
+                                <td align="right">$40 </td>
+                                <td align="right">$40 </td>
+                                <td align="center"> <a href="#"><img src="images/remove_x.gif" alt="remove" /><br />Remove</a> </td>
+                            </tr>
+                            <?php
+                            $total_price += ($product["price"] * $product["quantity"]);
+                        }
+                        ?>
+                    <?php
+                    } else {
+                        echo "<h3>Your cart is empty!</h3>";
+                    }
+                    ?>
                     <tr>
                         <td colspan="3" align="right" height="40px">Have you modified your basket? Please click here to <a href="shoppingcart.html"><strong>Update</strong></a>&nbsp;&nbsp;</td>
                         <td align="right" style="background:#ccc; font-weight:bold"> Total </td>

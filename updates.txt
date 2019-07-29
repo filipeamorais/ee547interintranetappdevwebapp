@@ -12,3 +12,6 @@ It is retrieving data and showing on the screen.
 I will have to fill the database with more products and change the pictures.
 I will have to prepare and set properly the product detail page.
 I will also have to customize all the texts and links all over.
+
+The product is been rendered in the productdetail page and then the next would be to add it to cart and buy it. It uses session for that, I would have to learn it. 
+After that, to be safe is better to remodel the site and be sure I would get the basics running, and also add some more products.

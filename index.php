@@ -55,7 +55,43 @@
             else if (field.value == '') field.value = field.defaultValue;
         }
     </script>
-
+    <?php
+    session_start();
+    if (isset($_POST['prod_no']) && $_POST['prod_no']!=""){
+        $prod_no = $_POST['code'];
+        $result = mysqli_query($con,"SELECT * FROM `products` WHERE `prod_no`='$prod_no'");
+        $row = mysqli_fetch_assoc($result);
+        $name = $row['prod_name'];
+        $code = $row['prod_no'];
+        $price = $row['prod_price'];
+         
+        $cartArray = array(
+         $code=>array(
+         'name'=>$name,
+         'code'=>$code,
+         'price'=>$price,
+         'quantity'=>1)
+        );
+         
+        if(empty($_SESSION["shopping_cart"])) {
+            $_SESSION["shopping_cart"] = $cartArray;
+            $status = "<div class='box'>Product is added to your cart!</div>";
+        }else{
+            $array_keys = array_keys($_SESSION["shopping_cart"]);
+            if(in_array($code,$array_keys)) {
+         $status = "<div class='box' style='color:red;'>
+         Product is already added to your cart!</div>"; 
+            } else {
+            $_SESSION["shopping_cart"] = array_merge(
+            $_SESSION["shopping_cart"],
+            $cartArray
+            );
+            $status = "<div class='box'>Product is added to your cart!</div>";
+         }
+         
+         }
+        }
+    ?>
 </head>
 
 <body id="home">
@@ -171,6 +207,7 @@
             <!-- END of sidebar -->
 
             <?php
+            
             include 'rootsdb.inc';
 
             $connection = mysqli_connect($host, $user, $password, $database);
@@ -181,71 +218,19 @@
 
             $sqlSelectAllTheProducts = "SELECT * FROM tblproduct";
             $resultAllTheProducts = mysqli_query($connection, $sqlSelectAllTheProducts);
-            while ($allTheProductsRow = mysqli_fetch_assoc($resultAllTheProducts)) {
-            echo "<div id=\"content\">";
-            echo "<div class=\"col col_14 product_gallery\">";
-            echo "<a href=\"productdetail.php?prod_no=".$allTheProductsRow['prod_no']."\"><img src=\"images/product/".$allTheProductsRow['prod_no'].".jpg\" alt=\"Product 01\" /></a>";
-            echo "<h3>".$allTheProductsRow['prod_name']."</h3>";
-            echo "<p class=\"product_price\">".$allTheProductsRow['prod_price']."</p>";
-            echo "<a href=\"shoppingcart.html\" class=\"add_to_cart\">Add to Cart</a>";
-            echo "</div>";
-        }
+            while ($allTheProductsRow = mysqli_fetch_assoc($resultAllTheProducts)){
+            
+                echo '<form method="post" action="" id="form1">
+                <div id="content">';
+            echo '<div class="col col_14 product_gallery">';
+            echo '<a href="productdetail.php?prod_no='.$allTheProductsRow["prod_no"].'"><img src="images/product/'.$allTheProductsRow["prod_no"].'.jpg" alt="Product 01"></a>';
+            echo '<h3>'.$allTheProductsRow["prod_name"].'</h3>';
+            echo "<p class=\"product_price\">".$allTheProductsRow['prod_price']."</p>
+            <input type='hidden' name='prod_no' value=".$allTheProductsRow['prod_no']." />";
+            echo '<a href="shoppingcart.html" onclick="document.getElementById("form1").submit(); return false;" class="add_to_cart">Add to Cart</a>';
+            echo "</div></form>";
+            }
             ?>
-        <!-- <div id="content">
-        	<div class="col col_14 product_gallery">
-            	<a href="productdetail.html"><img src="images/product/01.jpg" alt="Product 01" /></a>
-                <h3>Ut eu feugiat</h3>
-                <p class="product_price">$ 100</p>
-                <a href="shoppingcart.html" class="add_to_cart">Add to Cart</a>
-            </div>        	
-            <div class="col col_14 product_gallery">
-            	<a href="productdetail.html"><img src="images/product/02.jpg" alt="Product 02" /></a>
-                <h3>Curabitur et turpis</h3>
-                <p class="product_price">$ 200</p>
-                <a href="shoppingcart.html" class="add_to_cart">Add to Cart</a>
-            </div>        	
-            <div class="col col_14 product_gallery no_margin_right">
-            	<a href="productdetail.html"><img src="images/product/03.jpg" alt="Product 03" /></a>
-                <h3>Mauris consectetur</h3>
-                <p class="product_price">$ 120</p>
-                <a href="shoppingcart.html" class="add_to_cart">Add to Cart</a>
-            </div>        	
-            <div class="col col_14 product_gallery">
-            	<a href="productdetail.html"><img src="images/product/04.jpg" alt="Product 04" /></a>
-                <h3>Proin volutpat</h3>
-                <p class="product_price">$ 260</p>
-                <a href="shoppingcart.html" class="add_to_cart">Add to Cart</a>
-            </div>        	
-            <div class="col col_14 product_gallery">
-            	<a href="productdetail.html"><img src="images/product/05.jpg" alt="Product 05" /></a>
-                <h3>Aenean tempus</h3>
-                <p class="product_price">$ 80</p>
-                <a href="shoppingcart.html" class="add_to_cart">Add to Cart</a>
-            </div>        	
-            <div class="col col_14 product_gallery no_margin_right">
-            	<a href="productdetail.html"><img src="images/product/06.jpg" alt="Product 06" /></a>
-                <h3>Nulla luctus urna</h3>
-                <p class="product_price">$ 193</p>
-                <a href="shoppingcart.html" class="add_to_cart">Add to Cart</a>
-            </div>        	
-            <div class="col col_14 product_gallery">
-            	<a href="productdetail.html"><img src="images/product/07.jpg" alt="Product 07" /></a>
-                <h3>Pellentesque egestas</h3>
-                <p class="product_price">$ 30</p>
-                <a href="shoppingcart.html" class="add_to_cart">Add to Cart</a>
-            </div>        	
-            <div class="col col_14 product_gallery">
-            	<a href="productdetail.html"><img src="images/product/08.jpg" alt="Product 08" /></a>
-                <h3>Suspendisse porttitor</h3>
-                <p class="product_price">$ 220</p>
-                <a href="shoppingcart.html" class="add_to_cart">Add to Cart</a>
-            </div>        	
-            <div class="col col_14 product_gallery no_margin_right">
-            	<a href="productdetail.html"><img src="images/product/09.jpg" alt="Product 09" /></a>
-                <h3>Nam vehicula</h3>
-                <p class="product_price">$ 65</p>
-                <a href="shoppingcart.html" class="add_to_cart">Add to Cart</a>
-            </div>        	 -->
         </div> <!-- END of content -->
         <div class="cleaner"></div>
     </div> <!-- END of main -->

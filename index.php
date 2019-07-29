@@ -42,17 +42,20 @@
         if (empty($_SESSION["shopping_cart"])) {
             $_SESSION["shopping_cart"] = $cartArray;
             $status = "<div class='box'>Product is added to your cart!</div>";
+            echo($status);
         } else {
             $array_keys = array_keys($_SESSION["shopping_cart"]);
             if (in_array($codeProd, $array_keys)) {
                 $status = "<div class='box' style='color:red;'>
          Product is already added to your cart!</div>";
+         echo($status);
             } else {
                 $_SESSION["shopping_cart"] = array_merge(
                     $_SESSION["shopping_cart"],
                     $cartArray
                 );
                 $status = "<div class='box'>Product is added to your cart!</div>";
+                echo($status);
             }
         }
     }

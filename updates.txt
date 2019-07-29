@@ -28,3 +28,5 @@ The first page is basically finilized regarding the design and main functions. N
 The products were added to the database and are being retrieved on the index page. It still need configuration to present them on the best way.
 
 Next: Make sure the shopping cart is working properly and adding all the information required.
+
+Shopping cart being able to retrieve the data from the index page, now have to organize it better (started editing the page already). Make the total prices add and also be able to remove and change the quantity.

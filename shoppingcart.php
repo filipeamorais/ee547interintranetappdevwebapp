@@ -13,23 +13,6 @@
     <script type="text/javascript" src="js/jquery.min.js"></script>
     <script type="text/javascript" src="js/ddsmoothmenu.js"></script>
 
-    <!-- <script type="text/javascript">
-        ddsmoothmenu.init({
-            mainmenuid: "templatemo_menu", //menu DIV id
-            orientation: 'h', //Horizontal or vertical menu: Set to "h" or "v"
-            classname: 'ddsmoothmenu', //class added to menu's outer DIV
-            //customtheme: ["#1c5a80", "#18374a"],
-            contentsource: "markup" //"markup" or ["container_id", "path_to_menu_file"]
-        })
-    </script> -->
-
-    <!-- <script language="javascript" type="text/javascript">
-        function clearText(field) {
-            if (field.defaultValue == field.value) field.value = '';
-            else if (field.value == '') field.value = field.defaultValue;
-        }
-    </script> -->
-
     <?php
     session_start();
     $status = "";
@@ -61,54 +44,45 @@
 
 <body id="subpage">
 
-    <div id="templatemo_wrapper">
+<div id="templatemo_wrapper">
         <div id="templatemo_header">
             <div id="site_title">
-                <h1><a href="http://www.templatemo.com" rel="nofollow">Free CSS Templates</a></h1>
+                <h1>Roots Coffee</a>
+                </h1>
             </div>
 
             <div id="header_right">
                 <ul id="language">
-                    <li><a><img src="images/usa.png" alt="English" /></a></li>
-                    <li><a><img src="images/china.png" alt="Chinese" /></a></li>
-                    <li><a><img src="images/germany.png" alt="Germany" /></a></li>
-                    <li><a><img src="images/india.png" alt="Indian" /></a></li>
+                    <li>
+                        <a><img src="images/usa.png" alt="English" /></a>
+                    </li>
+                    <li>
+                        <a><img src="images/brazil.png" alt="Brazilian" /></a>
+                    </li>
                 </ul>
-                <div class="cleaner"></div>
+
                 <div id="templatemo_search">
                     <form action="#" method="get">
                         <input type="text" value="Search" name="keyword" id="keyword" title="keyword" onfocus="clearText(this)" onblur="clearText(this)" class="txt_field" />
                         <input type="submit" name="Search" value="" alt="Search" id="searchbutton" title="Search" class="sub_btn" />
                     </form>
                 </div>
-            </div> <!-- END -->
-        </div> <!-- END of header -->
+            </div>
+        </div>
+        <!-- END of header of the page -->
 
         <div id="templatemo_menu" class="ddsmoothmenu">
             <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="products.html" class="selected">Products</a>
-                    <ul>
-                        <li><a href="#">Sub menu 1</a></li>
-                        <li><a href="#">Sub menu 2</a></li>
-                        <li><a href="#">Sub menu 3</a></li>
-                    </ul>
-                </li>
-                <li><a href="about.html">About</a>
-                    <ul>
-                        <li><a href="#">Sub menu 1</a></li>
-                        <li><a href="#">Sub menu 2</a></li>
-                        <li><a href="#">Sub menu 3</a></li>
-                        <li><a href="#">Sub menu 4</a></li>
-                        <li><a href="#">Sub menu 5</a></li>
-                    </ul>
-                </li>
+                <li><a href="index.php" class="selected">Home</a></li>
+                <li><a href="products.php">Products</a></li>
+                <li><a href="about.html">About</a></li>
                 <li><a href="faqs.html">FAQs</a></li>
                 <li><a href="checkout.html">Checkout</a></li>
                 <li><a href="contact.html">Contact</a></li>
             </ul>
             <br style="clear: left" />
-        </div> <!-- end of templatemo_menu -->
+        </div>
+        <!-- end of templatemo_menu -->
 
         <div class="cleaner h20"></div>
         <div id="templatemo_main_top"></div>

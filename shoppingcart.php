@@ -88,24 +88,24 @@
         <div id="templatemo_main_top"></div>
         <div id="templatemo_main">
 
+        <div id="templatemo_main_top"></div>
+        <div id="templatemo_main">
+            <div id="product_slider">
+                <div class="cleaner"></div>
+            </div>
+
             <div id="sidebar">
                 <h3>Categories</h3>
                 <ul class="sidebar_menu">
-                    <li><a href="#">Aenean et dolor diam</a></li>
-                    <li><a href="#">Aenean pulvinar</a></li>
-                    <li><a href="#">Cras bibendum auctor</a></li>
-                    <li><a href="#">Donec sodales bibendum</a></li>
-                    <li><a href="#">Etiam in tellus</a></li>
-                    <li><a href="#">Hendrerit justo</a></li>
-                    <li><a href="#">Integer interdum</a></li>
-                    <li><a href="#">Maecenas a diam</a></li>
-                    <li><a href="#">Nullam in semper</a></li>
-                    <li><a href="#">Posuere in commodo</a></li>
-                    <li><a href="#">Tincidunt leo</a></li>
-                    <li><a href="#">Vestibulum blandit</a></li>
+                    <li><a href="#">Whole Bean</a></li>
+                    <li><a href="#">Percolator</a></li>
+                    <li><a href="#">Gold filter</a></li>
+                    <li><a href="#">French press</a></li>
+                    <li><a href="#">Espresso</a></li>
+                    <li><a href="#">Paper filter</a></li>
                 </ul>
-                <h3><a class="sidebar_title" href="http://www.hdstockphoto.com" title="foto" target="_blank">Newsletter</a></h3>
-                <p>Praesent aliquam mi id tellus pretium pulvinar in vel ligula.</p>
+                <h3>Newsletter</h3>
+                <p>Sign up to receive our promotions and updates.</p>
                 <div id="newsletter">
                     <form action="#" method="get">
                         <input type="text" value="Subscribe" name="email_newsletter" id="email_newsletter" title="email_newsletter" onfocus="clearText(this)" onblur="clearText(this)" class="txt_field" />
@@ -113,7 +113,8 @@
                     </form>
                     <div class="cleaner"></div>
                 </div>
-            </div> <!-- END of sidebar -->
+            </div>
+            <!-- END of sidebar -->
 
             <div id="content">
 

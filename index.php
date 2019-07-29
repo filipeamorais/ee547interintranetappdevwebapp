@@ -106,7 +106,6 @@
             <h1>Introducing Roots Coffee</h1>
             <p>Roots Coffee is an online coffee shop that brings only renowed coffee brands direct from local producers
                 of the world bests coffee places.</p>
-            <!-- <a href="#" class="buy_now">Browse All Products</a> -->
         </div>
         <!-- END of the middle of the page -->
 

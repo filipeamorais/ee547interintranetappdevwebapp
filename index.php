@@ -10,14 +10,9 @@
 
     <script type="text/javascript" src="js/jquery.min.js"></script>
     <script type="text/javascript" src="js/ddsmoothmenu.js">
-        /***********************************************
-         * Smooth Navigational Menu- (c) Dynamic Drive DHTML code library (www.dynamicdrive.com)
-         * This notice MUST stay intact for legal use
-         * Visit Dynamic Drive at http://www.dynamicdrive.com/ for full source code
-         ***********************************************/
     </script>
 
-    <script type="text/javascript">
+    <!-- <script type="text/javascript">
         ddsmoothmenu.init({
             mainmenuid: "templatemo_menu", //menu DIV id
             orientation: 'h', //Horizontal or vertical menu: Set to "h" or "v"
@@ -25,7 +20,7 @@
             //customtheme: ["#1c5a80", "#18374a"],
             contentsource: "markup" //"markup" or ["container_id", "path_to_menu_file"]
         })
-    </script>
+    </script> -->
 
     <link rel="stylesheet" type="text/css" href="css/styles.css" />
     <script language="javascript" type="text/javascript" src="scripts/mootools-1.2.1-core.js"></script>

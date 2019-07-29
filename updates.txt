@@ -23,3 +23,8 @@ How the session works? In each of the pages which I can add to cart has to be an
 It is adding to the session but not removing. Also, the code needs to be cleaned and added all the remaining information.
 
 The first page is basically finilized regarding the design and main functions. Now I have to make sure that at least the cart is working, fix its design, fix all the page links, reduce the files for the used ones and if there is time work on the product detail.
+
+20190729
+The products were added to the database and are being retrieved on the index page. It still need configuration to present them on the best way.
+
+Next: Make sure the shopping cart is working properly and adding all the information required.

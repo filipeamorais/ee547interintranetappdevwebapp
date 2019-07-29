@@ -25,13 +25,13 @@
     if (isset($_POST['prod_no']) && $_POST['prod_no'] != "") {
         $prod_no = $_POST['prod_no'];
         $resultAddedProduct = mysqli_query($connection, "SELECT * FROM `tblproduct` WHERE `prod_no`='$prod_no'");
-        $addedProductRow = mysqli_fetch_assoc($resultAllTheProducts);
+        $addedProductRow = mysqli_fetch_assoc($resultAddedProduct);
         $nameProd = $addedProductRow['prod_name'];
         $codeProd = $addedProductRow['prod_no'];
         $priceProd = $addedProductRow['prod_price'];
 
         $cartArray = array(
-            $code => array(
+            $codeProd => array(
                 'name' => $nameProd,
                 'code' => $codeProd,
                 'price' => $priceProd,
@@ -44,7 +44,7 @@
             $status = "<div class='box'>Product is added to your cart!</div>";
         } else {
             $array_keys = array_keys($_SESSION["shopping_cart"]);
-            if (in_array($code, $array_keys)) {
+            if (in_array($codeProd, $array_keys)) {
                 $status = "<div class='box' style='color:red;'>
          Product is already added to your cart!</div>";
             } else {
@@ -155,10 +155,10 @@
                 echo '<div class="col col_14 product_gallery">';
                 echo '<a href="productdetail.php?prod_no=' . $allTheProductsRow["prod_no"] . '"><img src="images/product/' . $allTheProductsRow["prod_no"] . '.jpg" alt="Product 01"></a>';
                 echo '<h3>' . $allTheProductsRow["prod_name"] . '</h3>';
-                echo "<p class=\"product_price\">" . $allTheProductsRow['prod_price'] . "</p>
-            <input type='hidden' name='prod_no' value=" . $allTheProductsRow['prod_no'] . " />";
-                echo ' <button type="submit" class="buy">Buy Now</button>
-            <a href="shoppingcart.php" onclick="document.getElementById("form1").submit(); return false;" class="add_to_cart">Add to Cart</a>';
+                echo "<p class=\"product_price\">$" . $allTheProductsRow['prod_price'] . ",00</p>
+                <input type='hidden' name='prod_no' value=" . $allTheProductsRow['prod_no'] . " />";
+                echo ' <button type="submit" class="buy">Add to Cart</button>
+                <a href="shoppingcart.php" class="add_to_cart">Go to Cart</a>';
                 echo "</div></form>";
             }
             ?>
@@ -168,7 +168,6 @@
 
 
     <div id="templatemo_footer">
-        <div class="col col_16">
         <div class="col col_16">
             <h4>Partners</h4>
             <ul class="footer_menu">

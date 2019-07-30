@@ -1,123 +1,126 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
+
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Roots Coffee - The online coffee shop store</title>
-    <link href="css/slider.css" rel="stylesheet" type="text/css" />
+    <meta name="keywords" content="coffee, coffee shop, roots" />
+    <meta name="description" content="Roots Coffee - The online coffee shop store provided by filipeam" />
+    <link href="css/templatemo_style.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" type="text/css" href="css/ddsmoothmenu.css" />
     <link rel="stylesheet" type="text/css" href="css/styles.css" />
 
-    <script language="javascript" type="text/javascript" src="scripts/mootools-1.2.1-core.js"></script>
-    <script language="javascript" type="text/javascript" src="scripts/mootools-1.2-more.js"></script>
-    <script language="javascript" type="text/javascript" src="scripts/slideitmoo-1.1.js"></script>
-    <script language="javascript" type="text/javascript">
-        window.addEvents({
-            'domready': function() {
-                /* thumbnails example , div containers */
-                new SlideItMoo({
-                    overallContainer: 'SlideItMoo_outer',
-                    elementScrolled: 'SlideItMoo_inner',
-                    thumbsContainer: 'SlideItMoo_items',
-                    itemsVisible: 5,
-                    elemsSlide: 2,
-                    duration: 200,
-                    itemsSelector: '.SlideItMoo_element',
-                    itemWidth: 171,
-                    showControls: 1
-                });
-            },
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="js/ddsmoothmenu.js"></script>
 
-        });
+    <?php
+    include 'rootsdb.inc';
+    session_start();
+    $connection = mysqli_connect($host, $user, $password, $database);
 
-        function clearText(field) {
-            if (field.defaultValue == field.value) field.value = '';
-            else if (field.value == '') field.value = field.defaultValue;
+    if (mysqli_connect_errno()) {
+        die(mysqli_connect_error());    // not production error handling
+    }
+
+    if (isset($_POST['prod_no']) && $_POST['prod_no'] != "") {
+        $prod_no = $_POST['prod_no'];
+        $resultAddedProduct = mysqli_query($connection, "SELECT * FROM `tblproduct` WHERE `prod_no`='$prod_no'");
+        $addedProductRow = mysqli_fetch_assoc($resultAddedProduct);
+        $nameProd = $addedProductRow['prod_name'];
+        $codeProd = $addedProductRow['prod_no'];
+        $priceProd = $addedProductRow['prod_price'];
+
+        $cartArray = array(
+            $codeProd => array(
+                'name' => $nameProd,
+                'code' => $codeProd,
+                'price' => $priceProd,
+                'quantity' => 1
+            )
+        );
+
+        if (empty($_SESSION["shopping_cart"])) {
+            $_SESSION["shopping_cart"] = $cartArray;
+            //$status = "<div class='box'>Product is added to your cart!</div>";
+            echo ("<script type='text/javascript'>alert('Product is added to your cart!');</script>");
+        } else {
+            $array_keys = array_keys($_SESSION["shopping_cart"]);
+            if (in_array($codeProd, $array_keys)) {
+                //$status = "<div class='box' style='color:red;'>Product is already added to your cart!</div>";
+                echo ("<script type='text/javascript'>alert('Product is already added to your cart!');</script>");
+            } else {
+                $_SESSION["shopping_cart"] = array_merge(
+                    $_SESSION["shopping_cart"],
+                    $cartArray
+                );
+                //$status = "<div class='box'>Product is added to your cart!</div>";
+                echo ("<script type='text/javascript'>alert('Product is added to your cart!');</script>");
+            }
         }
-    </script>
-
+    }
+    ?>
 </head>
 
-<body id="subpage">
+<body id="home">
 
     <div id="templatemo_wrapper">
         <div id="templatemo_header">
             <div id="site_title">
-                <h1><a href="http://www.templatemo.com" rel="nofollow">Free CSS Templates</a></h1>
+                <h1>Roots Coffee</a>
+                </h1>
             </div>
 
-           <div id="header_right">
+            <div id="header_right">
                 <ul id="language">
                     <li>
                         <a><img src="images/usa.png" alt="English" /></a>
                     </li>
                     <li>
-                        <a><img src="images/china.png" alt="Chinese" /></a>
-                    </li>
-                    <li>
-                        <a><img src="images/germany.png" alt="Germany" /></a>
-                    </li>
-                    <li>
                         <a><img src="images/brazil.png" alt="Brazilian" /></a>
                     </li>
                 </ul>
-                <div class="cleaner"></div>
+
                 <div id="templatemo_search">
                     <form action="#" method="get">
                         <input type="text" value="Search" name="keyword" id="keyword" title="keyword" onfocus="clearText(this)" onblur="clearText(this)" class="txt_field" />
                         <input type="submit" name="Search" value="" alt="Search" id="searchbutton" title="Search" class="sub_btn" />
                     </form>
                 </div>
-            </div> <!-- END -->
-        </div> <!-- END of header -->
+            </div>
+        </div>
+        <!-- END of header of the page -->
 
         <div id="templatemo_menu" class="ddsmoothmenu">
             <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="products.html" class="selected">Products</a>
-                    <ul>
-                        <li><a href="#">Sub menu 1</a></li>
-                        <li><a href="#">Sub menu 2</a></li>
-                        <li><a href="#">Sub menu 3</a></li>
-                    </ul>
-                </li>
-                <li><a href="about.html">About</a>
-                    <ul>
-                        <li><a href="#">Sub menu 1</a></li>
-                        <li><a href="#">Sub menu 2</a></li>
-                        <li><a href="#">Sub menu 3</a></li>
-                        <li><a href="#">Sub menu 4</a></li>
-                        <li><a href="#">Sub menu 5</a></li>
-                    </ul>
-                </li>
+                <li><a href="index.php" class="selected">Home</a></li>
+                <li><a href="products.php">Products</a></li>
+                <li><a href="about.html">About</a></li>
                 <li><a href="faqs.html">FAQs</a></li>
                 <li><a href="checkout.html">Checkout</a></li>
                 <li><a href="contact.html">Contact</a></li>
             </ul>
             <br style="clear: left" />
-        </div> <!-- end of templatemo_menu -->
+        </div>
+        <!-- end of templatemo_menu -->
 
-        <div class="cleaner h20"></div>
         <div id="templatemo_main_top"></div>
         <div id="templatemo_main">
+            <div id="product_slider">
+                <div class="cleaner"></div>
+            </div>
 
             <div id="sidebar">
                 <h3>Categories</h3>
                 <ul class="sidebar_menu">
-                    <li><a href="#">Aenean et dolor diam</a></li>
-                    <li><a href="#">Aenean pulvinar</a></li>
-                    <li><a href="#">Cras bibendum auctor</a></li>
-                    <li><a href="#">Donec sodales bibendum</a></li>
-                    <li><a href="#">Etiam in tellus</a></li>
-                    <li><a href="#">Hendrerit justo</a></li>
-                    <li><a href="#">Integer interdum</a></li>
-                    <li><a href="#">Maecenas a diam</a></li>
-                    <li><a href="#">Nullam in semper</a></li>
-                    <li><a href="#">Posuere in commodo</a></li>
-                    <li><a href="#">Tincidunt leo</a></li>
-                    <li><a href="#">Vestibulum blandit</a></li>
+                    <li><a href="#">Whole Bean</a></li>
+                    <li><a href="#">Percolator</a></li>
+                    <li><a href="#">Gold filter</a></li>
+                    <li><a href="#">French press</a></li>
+                    <li><a href="#">Espresso</a></li>
+                    <li><a href="#">Paper filter</a></li>
                 </ul>
-                <h3><a class="sidebar_title" href="http://pt.mystockvector.com" title="vetores Free" target="_blank">Newsletter</a></h3>
-                <p>Praesent aliquam mi id tellus pretium pulvinar in vel ligula.</p>
+                <h3>Newsletter</h3>
+                <p>Sign up to receive our promotions and updates.</p>
                 <div id="newsletter">
                     <form action="#" method="get">
                         <input type="text" value="Subscribe" name="email_newsletter" id="email_newsletter" title="email_newsletter" onfocus="clearText(this)" onblur="clearText(this)" class="txt_field" />
@@ -125,38 +128,39 @@
                     </form>
                     <div class="cleaner"></div>
                 </div>
-            </div> <!-- END of sidebar -->
+            </div>
+            <!-- END of sidebar -->
 
             <div id="content">
                 <h2>Product Details</h2>
                 <div class="col col_13">
-            <?php
-            include 'rootsdb.inc';
+                    <?php
+                    include 'rootsdb.inc';
 
-            $connection = mysqli_connect($host, $user, $password, $database);
-            
-            if (mysqli_connect_errno()) {
-              die(mysqli_connect_error());    // not production error handling
-            }
-            $prod_no = $_GET["prod_no"];
-            $sqlSelectSpecificProduct = "SELECT * FROM tblproduct WHERE prod_no=".$prod_no."";
-            $resultSpecificProduct = mysqli_query($connection, $sqlSelectSpecificProduct);
-            $specificProductsRow = mysqli_fetch_assoc($resultSpecificProduct);
-            echo('<a rel="lightbox[portfolio]" href="images/product/'.$specificProductsRow['prod_no'].'.jpg" title="'.$specificProductsRow['prod_name'].'"><img src="images/product/'.$specificProductsRow['prod_no'].'.jpg" alt="Image '.$specificProductsRow['prod_name'].'" /></a>');
-            echo('</div>');
-            echo('<div class="col col_13 no_margin_right">');
-            echo('<table>');
-            echo('<tr><td height="30" width="160">Price:</td><td>$100</td></tr>');
-            echo('<tr><td height="30">Availability:</td><td>In Stock</td></tr><tr></tr>');
-            echo('<tr><td height="30">Model:</td><td>Product 14</td></tr>');
-            echo('<tr><td height="30">Manufacturer:</td><td>Apple</td></tr>');
-            echo('<tr><td height="30">Quantity</td><td><input type="text" value="1" style="width: 20px; text-align: right" /></td></tr>');
-            ?>
+                    $connection = mysqli_connect($host, $user, $password, $database);
 
-            
-                
-                    
-                <!-- </div>
+                    if (mysqli_connect_errno()) {
+                        die(mysqli_connect_error());    // not production error handling
+                    }
+                    $prod_no = $_GET["prod_no"];
+                    $sqlSelectSpecificProduct = "SELECT * FROM tblproduct WHERE prod_no=" . $prod_no . "";
+                    $resultSpecificProduct = mysqli_query($connection, $sqlSelectSpecificProduct);
+                    $specificProductsRow = mysqli_fetch_assoc($resultSpecificProduct);
+                    echo ('<a rel="lightbox[portfolio]" href="images/product/' . $specificProductsRow['prod_no'] . '.jpg" title="' . $specificProductsRow['prod_name'] . '"><img src="images/product/' . $specificProductsRow['prod_no'] . '.jpg" alt="Image ' . $specificProductsRow['prod_name'] . '" /></a>');
+                    echo ('</div>');
+                    echo ('<div class="col col_13 no_margin_right">');
+                    echo ('<table>');
+                    echo ('<tr><td height="30" width="160">Price:</td><td>$100</td></tr>');
+                    echo ('<tr><td height="30">Availability:</td><td>In Stock</td></tr><tr></tr>');
+                    echo ('<tr><td height="30">Model:</td><td>Product 14</td></tr>');
+                    echo ('<tr><td height="30">Manufacturer:</td><td>Apple</td></tr>');
+                    echo ('<tr><td height="30">Quantity</td><td><input type="text" value="1" style="width: 20px; text-align: right" /></td></tr>');
+                    ?>
+
+
+
+
+                    <!-- </div>
                 <div class="col col_13 no_margin_right">
                     <table>
                         <tr>
@@ -190,7 +194,7 @@
 
                 <div class="cleaner h50"></div>
 
-                <h4>Other Products</h4>
+                <!-- <h4>Other Products</h4>
                 <div class="col col_14 product_gallery">
                     <a href="productdetail.html"><img src="images/product/01.jpg" alt="Product 01" /></a>
                     <h3>Ut eu feugiat</h3>
@@ -209,7 +213,7 @@
                     <p class="product_price">$ 120</p>
                     <a href="shoppingcart.html" class="add_to_cart">Add to Cart</a>
                 </div>
-                <a href="#" class="more float_r">View all</a>
+                <a href="#" class="more float_r">View all</a> -->
 
                 <div class="cleaner"></div>
             </div> <!-- END of content -->
@@ -218,30 +222,12 @@
 
         <div id="templatemo_footer">
             <div class="col col_16">
-                <h4>Categories</h4>
-                <ul class="footer_menu">
-                    <li><a href="#">Aenean et dolor diam</a></li>
-                    <li><a href="#">Aenean pulvinar</a></li>
-                    <li><a href="#">Cras bibendum auctor</a></li>
-                    <li><a href="#">Donec sodales bibendum</a></li>
-                </ul>
-            </div>
-            <div class="col col_16">
-                <h4>Pages</h4>
-                <ul class="footer_menu">
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#">Services</a></li>
-                    <li><a href="#">Shipping</a></li>
-                    <li><a href="#">Privacy</a></li>
-                </ul>
-            </div>
-            <div class="col col_16">
                 <h4>Partners</h4>
                 <ul class="footer_menu">
-                    <li><a rel="nofollow" href="http://www.flashmo.com/">Free Flash Templates</a></li>
-                    <li><a rel="nofollow" href="http://www.templatemo.com/">Free CSS Templates</a></li>
-                    <li><a href="http://www.koflash.com/">Website Gallery</a></li>
-                    <li><a href="http://www.webdesignmo.com/blog/">Web Design Resources</a></li>
+                    <li><a rel="nofollow" href="https://www.uab.edu/home/">UAB</a></li>
+                    <li><a rel="nofollow" href="https://secure.php.net/">PHP</a></li>
+                    <li><a href="https://www.apachefriends.org/index.html">XAMPP</a></li>
+                    <li><a href="https://www.mysql.com/">MySQL</a></li>
                 </ul>
             </div>
             <div class="col col_16">
@@ -255,14 +241,17 @@
             </div>
             <div class="col col_13 no_margin_right">
                 <h4>About Us</h4>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur semper quam sit amet turpis rhoncus id venenatis tellus sollicitudin. Fusce ullamcorper, dolor non mollis pulvinar, turpis tortor commodo nisl. Validate <a href="http://validator.w3.org/check?uri=referer" rel="nofollow"><strong>XHTML</strong></a> &amp; <a href="http://jigsaw.w3.org/css-validator/check/referer" rel="nofollow"><strong>CSS</strong></a>.</p>
+                <p>Roots Coffee is an online coffee shop that brings only renowed coffee brands direct from local producers
+                    of the world bests coffee places.</p>
             </div>
 
             <div class="cleaner h40"></div>
             <center>
-                Copyright © 2048 Your Company Name | Designed by <a href="http://www.templatemo.com" rel="nofollow" target="_parent">Free CSS Templates</a>
+                Copyright © 2048 Roots Coffee | Designed by Filipe Morais</a>
             </center>
-        </div> <!-- END of footer -->
+        </div>
+        <!-- END of footer -->
+
 
     </div>
 

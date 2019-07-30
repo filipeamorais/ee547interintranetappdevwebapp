@@ -141,8 +141,9 @@
 
                         </tr>
                         <?php
+                        $total_price = 0;
                         if (isset($_SESSION["shopping_cart"])) {
-                            $total_price = 0;
+                            
                             foreach ($_SESSION["shopping_cart"] as $product) {
                                 ?>
                                 <tr>
@@ -180,7 +181,7 @@
                         }
                         ?>
                         <tr>
-                            <td colspan="3" align="right" height="40px">Have you modified your basket? Please click here to <a href="shoppingcart.html"><strong>Update</strong></a>&nbsp;&nbsp;</td>
+                            <td colspan="3" align="right" height="40px"></td>
                             <td align="right" style="background:#ccc; font-weight:bold"> Total </td>
                             <td align="right" style="background:#ccc; font-weight:bold"><?php echo "$" . $total_price; ?></td>
                             <td style="background:#ccc; font-weight:bold"> </td>

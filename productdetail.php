@@ -150,11 +150,11 @@
                     echo ('</div>');
                     echo ('<div class="col col_13 no_margin_right">');
                     echo ('<table>');
-                    echo ('<tr><td height="30" width="160">Price:</td><td>$100</td></tr>');
+                    echo ('<tr><td height="30" width="160">Price:</td><td>$' . $specificProductsRow['prod_price'] . ',00</td></tr>');
                     echo ('<tr><td height="30">Availability:</td><td>In Stock</td></tr><tr></tr>');
-                    echo ('<tr><td height="30">Model:</td><td>Product 14</td></tr>');
-                    echo ('<tr><td height="30">Manufacturer:</td><td>Apple</td></tr>');
-                    echo ('<tr><td height="30">Quantity</td><td><input type="text" value="1" style="width: 20px; text-align: right" /></td></tr>');
+                    // echo ('<tr><td height="30">Model:</td><td>Product 14</td></tr>');
+                    // echo ('<tr><td height="30">Manufacturer:</td><td>Apple</td></tr>');
+                    // echo ('<tr><td height="30">Quantity</td><td><input type="text" value="1" style="width: 20px; text-align: right" /></td></tr>');
                     ?>
 
 

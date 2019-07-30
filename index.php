@@ -150,10 +150,9 @@
 
             $sqlSelectAllTheProducts = "SELECT * FROM tblproduct";
             $resultAllTheProducts = mysqli_query($connection, $sqlSelectAllTheProducts);
+            echo '<div id="content">';
             while ($allTheProductsRow = mysqli_fetch_assoc($resultAllTheProducts)) {
-
-                echo '<form method="post" action="" id="form1">
-                <div id="content">';
+                echo '<form method="post" action="" id="form1">';
                 echo '<div class="col col_14 product_gallery">';
                 echo '<a href="productdetail.php?prod_no=' . $allTheProductsRow["prod_no"] . '"><img src="images/product/' . $allTheProductsRow["prod_no"] . '.jpg" alt="Product 01"></a>';
                 echo '<h3>' . $allTheProductsRow["prod_name"] . '</h3>';
@@ -161,7 +160,8 @@
                 <input type='hidden' name='prod_no' value=" . $allTheProductsRow['prod_no'] . " />";
                 echo ' <button type="submit" class="buy">Add to Cart</button>
                 <a href="shoppingcart.php" class="add_to_cart">Go to Cart</a>';
-                echo "</div></form>";
+                echo "</form>";
+                echo "</div>";
             }
             ?>
         </div> <!-- END of content -->

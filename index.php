@@ -172,10 +172,10 @@
         <div class="col col_16">
             <h4>Partners</h4>
             <ul class="footer_menu">
-                <li><a rel="nofollow" href="http://www.flashmo.com/">Free Flash Templates</a></li>
-                <li><a rel="nofollow" href="http://www.templatemo.com/">Free CSS Templates</a></li>
-                <li><a href="http://www.koflash.com/">Website Gallery</a></li>
-                <li><a href="http://www.webdesignmo.com/blog/">Web Design Resources</a></li>
+                <li><a rel="nofollow" href="https://www.uab.edu/home/">UAB</a></li>
+                <li><a rel="nofollow" href="https://secure.php.net/">PHP</a></li>
+                <li><a href="https://www.apachefriends.org/index.html">XAMPP</a></li>
+                <li><a href="https://www.mysql.com/">MySQL</a></li>
             </ul>
         </div>
         <div class="col col_16">

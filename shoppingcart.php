@@ -17,13 +17,13 @@
     session_start();
     $status = "";
     if (isset($_POST['action']) && $_POST['action'] == "remove") {
-        echo("here");
+        echo ("here");
         if (!empty($_SESSION["shopping_cart"])) {
-            echo("here");
+            echo ("here");
             foreach ($_SESSION["shopping_cart"] as $key => $value) {
-                echo("here");
+                echo ("here");
                 if ($_POST["code"] == $key) {
-                    echo("here");
+                    echo ("here");
                     unset($_SESSION["shopping_cart"][$key]);
                     $status = "<div class='box' style='color:red;'>
       Product is removed from your cart!</div>";
@@ -195,10 +195,10 @@
                 <div class="col col_16">
                     <h4>Partners</h4>
                     <ul class="footer_menu">
-                        <li><a rel="nofollow" href="http://www.flashmo.com/">Free Flash Templates</a></li>
-                        <li><a rel="nofollow" href="http://www.templatemo.com/">Free CSS Templates</a></li>
-                        <li><a href="http://www.koflash.com/">Website Gallery</a></li>
-                        <li><a href="http://www.webdesignmo.com/blog/">Web Design Resources</a></li>
+                        <li><a rel="nofollow" href="https://www.uab.edu/home/">UAB</a></li>
+                        <li><a rel="nofollow" href="https://secure.php.net/">PHP</a></li>
+                        <li><a href="https://www.apachefriends.org/index.html">XAMPP</a></li>
+                        <li><a href="https://www.mysql.com/">MySQL</a></li>
                     </ul>
                 </div>
                 <div class="col col_16">

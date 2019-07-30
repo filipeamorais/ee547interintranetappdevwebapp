@@ -157,7 +157,12 @@
 
                     </table>
                     <div class="cleaner h20"></div>
-                    <a href="shoppingcart.html" class="add_to_cart">Add to Cart</a>
+                    <?php echo ('<form method="post" action="" id="form1">');
+                    echo ("<input type='hidden' name='prod_no' value=" . $specificProductsRow['prod_no'] . " />");
+                    echo ('<button type="submit" class="buy">Add to Cart</button>
+                    <a href="shoppingcart.php" class="add_to_cart">Go to Cart</a>
+                    </form>');?>
+
                 </div>
                 <div class="cleaner h30"></div>
 

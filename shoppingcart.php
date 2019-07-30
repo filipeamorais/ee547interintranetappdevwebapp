@@ -131,7 +131,6 @@
                     <?php
                     if (isset($_SESSION["shopping_cart"])) {
                         $total_price = 0;
-                        echo ($total_price);
                         foreach ($_SESSION["shopping_cart"] as $product) {
                             ?>
                             <tr>
@@ -151,7 +150,8 @@
                                         </select>
                                     </form>
                                 </td>
-                                <td align="right">$100 </td>
+                                <td><?php echo "$".$product["price"]; ?></td>
+                                <td><?php echo "$".$product["price"]*$product["quantity"]; ?></td>
                                 <td align="center"> <a href="#"><img src="images/remove_x.gif" alt="remove" /><br />Remove</a> </td>
                             </tr>
                             <!-- <tr>

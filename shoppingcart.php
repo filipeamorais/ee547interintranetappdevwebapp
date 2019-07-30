@@ -17,18 +17,25 @@
     session_start();
     $status = "";
     if (isset($_POST['action']) && $_POST['action'] == "remove") {
-        echo ("here");
+        echo ("here1");
         if (!empty($_SESSION["shopping_cart"])) {
-            echo ("here");
-            foreach ($_SESSION["shopping_cart"] as $key => $value) {
-                echo ("here");
-                if ($_POST["code"] == $key) {
-                    echo ("here");
-                    unset($_SESSION["shopping_cart"][$key]);
+            echo ("here2");
+            $counter=0;
+            foreach ($_SESSION["shopping_cart"] as $key) {
+                echo (" code=");
+                echo ($_POST["code"]);
+                echo (" key=");
+                echo ($key["code"]);
+                echo (" counter=");
+                echo($counter);
+                if ($_POST["code"] == $key["code"]) {
+                    echo ("here4");
+                    unset($_SESSION["shopping_cart"][$counter]);
                     $status = "<div class='box' style='color:red;'>
       Product is removed from your cart!</div>";
                     echo ($status);
                 }
+                $counter=$counter+1;
                 if (empty($_SESSION["shopping_cart"]))
                     unset($_SESSION["shopping_cart"]);
             }
@@ -146,11 +153,11 @@
                                             <input type='hidden' name='code' value="<?php echo $product["code"]; ?>" />
                                             <input type='hidden' name='action' value="change" />
                                             <select name='quantity' class='quantity' onChange="this.form.submit()">
-                                                <option <?php if ($product["quantity"] == 1) echo "selected"; ?>value="1">1</option>
-                                                <option <?php if ($product["quantity"] == 2) echo "selected"; ?>value="2">2</option>
-                                                <option <?php if ($product["quantity"] == 3) echo "selected"; ?>value="3">3</option>
-                                                <option <?php if ($product["quantity"] == 4) echo "selected"; ?>value="4">4</option>
-                                                <option <?php if ($product["quantity"] == 5) echo "selected"; ?>value="5">5</option>
+                                                <option <?php if ($product["quantity"] == 1) echo "selected "; ?>value="1">1</option>
+                                                <option <?php if ($product["quantity"] == 2) echo "selected "; ?>value="2">2</option>
+                                                <option <?php if ($product["quantity"] == 3) echo "selected "; ?>value="3">3</option>
+                                                <option <?php if ($product["quantity"] == 4) echo "selected "; ?>value="4">4</option>
+                                                <option <?php if ($product["quantity"] == 5) echo "selected "; ?>value="5">5</option>
                                             </select>
                                         </form>
                                     </td>

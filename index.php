@@ -114,7 +114,7 @@
         <div id="templatemo_main_top"></div>
         <div id="templatemo_main">
             <div id="product_slider">
-                <div class="cleaner"><?php echo ($status);?></div>
+                <div class="cleaner"></div>
             </div>
 
             <div id="sidebar">

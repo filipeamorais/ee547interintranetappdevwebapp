@@ -154,14 +154,6 @@
                                 <td><?php echo "$".$product["price"]*$product["quantity"]; ?></td>
                                 <td align="center"> <a href="#"><img src="images/remove_x.gif" alt="remove" /><br />Remove</a> </td>
                             </tr>
-                            <!-- <tr>
-                                <td><img src="images/product/02.jpg" alt="image 02" /> </td>
-                                <td>Hendrerit justo</td>
-                                <td align="center"><input type="text" value="1" style="width: 20px; text-align: right" /> </td>
-                                <td align="right">$40 </td>
-                                <td align="right">$40 </td>
-                                <td align="center"> <a href="#"><img src="images/remove_x.gif" alt="remove" /><br />Remove</a> </td>
-                            </tr> -->
                             <?php
                             $total_price += ($product["price"] * $product["quantity"]);
                         }
@@ -174,7 +166,7 @@
                     <tr>
                         <td colspan="3" align="right" height="40px">Have you modified your basket? Please click here to <a href="shoppingcart.html"><strong>Update</strong></a>&nbsp;&nbsp;</td>
                         <td align="right" style="background:#ccc; font-weight:bold"> Total </td>
-                        <td align="right" style="background:#ccc; font-weight:bold">$140 </td>
+                        <td align="right" style="background:#ccc; font-weight:bold"><?php echo "$".$total_price; ?></td>
                         <td style="background:#ccc; font-weight:bold"> </td>
                     </tr>
                 </table>

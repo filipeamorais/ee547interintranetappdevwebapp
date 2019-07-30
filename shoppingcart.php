@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Roots Coffee - The online coffee shop store</title>
     <meta name="keywords" content="coffee, coffee shop, roots" />
     <meta name="description" content="Roots Coffee - The online coffee shop store provided by filipeam" />
@@ -17,12 +17,17 @@
     session_start();
     $status = "";
     if (isset($_POST['action']) && $_POST['action'] == "remove") {
+        echo("here");
         if (!empty($_SESSION["shopping_cart"])) {
+            echo("here");
             foreach ($_SESSION["shopping_cart"] as $key => $value) {
+                echo("here");
                 if ($_POST["code"] == $key) {
+                    echo("here");
                     unset($_SESSION["shopping_cart"][$key]);
                     $status = "<div class='box' style='color:red;'>
       Product is removed from your cart!</div>";
+                    echo ($status);
                 }
                 if (empty($_SESSION["shopping_cart"]))
                     unset($_SESSION["shopping_cart"]);
@@ -44,7 +49,7 @@
 
 <body id="subpage">
 
-<div id="templatemo_wrapper">
+    <div id="templatemo_wrapper">
         <div id="templatemo_header">
             <div id="site_title">
                 <h1>Roots Coffee</a>
@@ -88,134 +93,138 @@
         <div id="templatemo_main_top"></div>
         <div id="templatemo_main">
 
-        <div id="templatemo_main_top"></div>
-        <div id="templatemo_main">
-            <div id="product_slider">
-                <div class="cleaner"></div>
-            </div>
-
-            <div id="sidebar">
-                <h3>Categories</h3>
-                <ul class="sidebar_menu">
-                    <li><a href="#">Whole Bean</a></li>
-                    <li><a href="#">Percolator</a></li>
-                    <li><a href="#">Gold filter</a></li>
-                    <li><a href="#">French press</a></li>
-                    <li><a href="#">Espresso</a></li>
-                    <li><a href="#">Paper filter</a></li>
-                </ul>
-                <h3>Newsletter</h3>
-                <p>Sign up to receive our promotions and updates.</p>
-                <div id="newsletter">
-                    <form action="#" method="get">
-                        <input type="text" value="Subscribe" name="email_newsletter" id="email_newsletter" title="email_newsletter" onfocus="clearText(this)" onblur="clearText(this)" class="txt_field" />
-                        <input type="submit" name="subscribe" value="Subscribe" alt="Subscribe" id="subscribebtn" title="Subscribe" class="subscribebtn" />
-                    </form>
+            <div id="templatemo_main_top"></div>
+            <div id="templatemo_main">
+                <div id="product_slider">
                     <div class="cleaner"></div>
                 </div>
-            </div>
-            <!-- END of sidebar -->
 
-            <div id="content">
+                <div id="sidebar">
+                    <h3>Categories</h3>
+                    <ul class="sidebar_menu">
+                        <li><a href="#">Whole Bean</a></li>
+                        <li><a href="#">Percolator</a></li>
+                        <li><a href="#">Gold filter</a></li>
+                        <li><a href="#">French press</a></li>
+                        <li><a href="#">Espresso</a></li>
+                        <li><a href="#">Paper filter</a></li>
+                    </ul>
+                    <h3>Newsletter</h3>
+                    <p>Sign up to receive our promotions and updates.</p>
+                    <div id="newsletter">
+                        <form action="#" method="get">
+                            <input type="text" value="Subscribe" name="email_newsletter" id="email_newsletter" title="email_newsletter" onfocus="clearText(this)" onblur="clearText(this)" class="txt_field" />
+                            <input type="submit" name="subscribe" value="Subscribe" alt="Subscribe" id="subscribebtn" title="Subscribe" class="subscribebtn" />
+                        </form>
+                        <div class="cleaner"></div>
+                    </div>
+                </div>
+                <!-- END of sidebar -->
 
-                <table width="700px" cellspacing="0" cellpadding="5">
-                    <tr bgcolor="#CCCCCC">
-                        <th width="220" align="left">Image </th>
-                        <th width="180" align="left">Description </th>
-                        <th width="100" align="center">Quantity </th>
-                        <th width="60" align="right">Price </th>
-                        <th width="60" align="right">Total </th>
-                        <th width="90"> </th>
+                <div id="content">
 
-                    </tr>
-                    <?php
-                    if (isset($_SESSION["shopping_cart"])) {
-                        $total_price = 0;
-                        foreach ($_SESSION["shopping_cart"] as $product) {
+                    <table width="700px" cellspacing="0" cellpadding="5">
+                        <tr bgcolor="#CCCCCC">
+                            <th width="220" align="left">Image </th>
+                            <th width="180" align="left">Description </th>
+                            <th width="100" align="center">Quantity </th>
+                            <th width="60" align="right">Price </th>
+                            <th width="60" align="right">Total </th>
+                            <th width="90"> </th>
+
+                        </tr>
+                        <?php
+                        if (isset($_SESSION["shopping_cart"])) {
+                            $total_price = 0;
+                            foreach ($_SESSION["shopping_cart"] as $product) {
+                                ?>
+                                <tr>
+                                    <td><img src="images/product/<?php echo $product["code"]; ?>.jpg" alt="<?php echo $product["name"]; ?> image" /></td>
+                                    <td><?php echo $product["name"]; ?></td>
+                                    <td>
+                                        <form method='post' action=''>
+                                            <input type='hidden' name='code' value="<?php echo $product["code"]; ?>" />
+                                            <input type='hidden' name='action' value="change" />
+                                            <select name='quantity' class='quantity' onChange="this.form.submit()">
+                                                <option <?php if ($product["quantity"] == 1) echo "selected"; ?>value="1">1</option>
+                                                <option <?php if ($product["quantity"] == 2) echo "selected"; ?>value="2">2</option>
+                                                <option <?php if ($product["quantity"] == 3) echo "selected"; ?>value="3">3</option>
+                                                <option <?php if ($product["quantity"] == 4) echo "selected"; ?>value="4">4</option>
+                                                <option <?php if ($product["quantity"] == 5) echo "selected"; ?>value="5">5</option>
+                                            </select>
+                                        </form>
+                                    </td>
+                                    <td><?php echo "$" . $product["price"]; ?></td>
+                                    <td><?php echo "$" . $product["price"] * $product["quantity"]; ?></td>
+                                    <td>
+                                        <form method='post' action=''>
+                                            <input type='hidden' name='code' value="<?php echo $product["code"]; ?>" />
+                                            <input type='hidden' name='action' value="remove" />
+                                            <button type='submit' class='remove'>Remove Item</button>
+                                    </td>
+                                </tr>
+                                <?php
+                                $total_price += ($product["price"] * $product["quantity"]);
+                            }
                             ?>
-                            <tr>
-                                <td><img src="images/product/<?php echo $product["code"]; ?>.jpg" alt="<?php echo $product["name"]; ?> image" /></td>
-                                <td><?php echo $product["name"]; ?></td>
-                                <!-- <td align="center"><input type="text" value="1" style="width: 20px; text-align: right" /> </td> -->
-                                <td>
-                                    <form method='post' action=''>
-                                        <input type='hidden' name='code' value="<?php echo $product["code"]; ?>" />
-                                        <input type='hidden' name='action' value="change" />
-                                        <select name='quantity' class='quantity' onChange="this.form.submit()">
-                                            <option <?php if ($product["quantity"] == 1) echo "selected"; ?>value="1">1</option>
-                                            <option <?php if ($product["quantity"] == 2) echo "selected"; ?>value="2">2</option>
-                                            <option <?php if ($product["quantity"] == 3) echo "selected"; ?>value="3">3</option>
-                                            <option <?php if ($product["quantity"] == 4) echo "selected"; ?>value="4">4</option>
-                                            <option <?php if ($product["quantity"] == 5) echo "selected"; ?>value="5">5</option>
-                                        </select>
-                                    </form>
-                                </td>
-                                <td><?php echo "$".$product["price"]; ?></td>
-                                <td><?php echo "$".$product["price"]*$product["quantity"]; ?></td>
-                                <td align="center"> <a href="#"><img src="images/remove_x.gif" alt="remove" /><br />Remove</a> </td>
-                            </tr>
-                            <?php
-                            $total_price += ($product["price"] * $product["quantity"]);
+                        <?php
+                        } else {
+                            echo "<h3>Your cart is empty!</h3>";
                         }
                         ?>
-                    <?php
-                    } else {
-                        echo "<h3>Your cart is empty!</h3>";
-                    }
-                    ?>
-                    <tr>
-                        <td colspan="3" align="right" height="40px">Have you modified your basket? Please click here to <a href="shoppingcart.html"><strong>Update</strong></a>&nbsp;&nbsp;</td>
-                        <td align="right" style="background:#ccc; font-weight:bold"> Total </td>
-                        <td align="right" style="background:#ccc; font-weight:bold"><?php echo "$".$total_price; ?></td>
-                        <td style="background:#ccc; font-weight:bold"> </td>
-                    </tr>
-                </table>
-                <div style="float:right; width: 215px; margin-top: 20px;">
+                        <tr>
+                            <td colspan="3" align="right" height="40px">Have you modified your basket? Please click here to <a href="shoppingcart.html"><strong>Update</strong></a>&nbsp;&nbsp;</td>
+                            <td align="right" style="background:#ccc; font-weight:bold"> Total </td>
+                            <td align="right" style="background:#ccc; font-weight:bold"><?php echo "$" . $total_price; ?></td>
+                            <td style="background:#ccc; font-weight:bold"> </td>
+                        </tr>
+                    </table>
+                    <div style="float:right; width: 215px; margin-top: 20px;">
 
-                    <div class="checkout"><a href="checkout.html" class="more">Proceed to Checkout</a></div>
-                    <div class="cleaner h20"></div>
-                    <div class="continueshopping"><a href="javascript:history.back()" class="more">Continue Shopping</a></div>
+                        <div class="checkout"><a href="checkout.html" class="more">Proceed to Checkout</a></div>
+                        <div class="cleaner h20"></div>
+                        <div class="continueshopping"><a href="javascript:history.back()" class="more">Continue Shopping</a></div>
+
+                    </div>
 
                 </div>
+                <div class="cleaner"></div>
+            </div> <!-- END of main -->
 
+            <div id="templatemo_footer">
+                <div class="col col_16">
+                    <h4>Partners</h4>
+                    <ul class="footer_menu">
+                        <li><a rel="nofollow" href="http://www.flashmo.com/">Free Flash Templates</a></li>
+                        <li><a rel="nofollow" href="http://www.templatemo.com/">Free CSS Templates</a></li>
+                        <li><a href="http://www.koflash.com/">Website Gallery</a></li>
+                        <li><a href="http://www.webdesignmo.com/blog/">Web Design Resources</a></li>
+                    </ul>
+                </div>
+                <div class="col col_16">
+                    <h4>Social</h4>
+                    <ul class="footer_menu">
+                        <li><a href="#">Twitter</a></li>
+                        <li><a href="#">Facebook</a></li>
+                        <li><a href="#">Youtube</a></li>
+                        <li><a href="#">LinkedIn</a></li>
+                    </ul>
+                </div>
+                <div class="col col_13 no_margin_right">
+                    <h4>About Us</h4>
+                    <p>Roots Coffee is an online coffee shop that brings only renowed coffee brands direct from local producers
+                        of the world bests coffee places.</p>
+                </div>
+
+                <div class="cleaner h40"></div>
+                <center>
+                    Copyright © 2048 Roots Coffee | Designed by Filipe Morais</a>
+                </center>
             </div>
-            <div class="cleaner"></div>
-        </div> <!-- END of main -->
-
-        <div id="templatemo_footer">
-        <div class="col col_16">
-            <h4>Partners</h4>
-            <ul class="footer_menu">
-                <li><a rel="nofollow" href="http://www.flashmo.com/">Free Flash Templates</a></li>
-                <li><a rel="nofollow" href="http://www.templatemo.com/">Free CSS Templates</a></li>
-                <li><a href="http://www.koflash.com/">Website Gallery</a></li>
-                <li><a href="http://www.webdesignmo.com/blog/">Web Design Resources</a></li>
-            </ul>
-        </div>
-        <div class="col col_16">
-            <h4>Social</h4>
-            <ul class="footer_menu">
-                <li><a href="#">Twitter</a></li>
-                <li><a href="#">Facebook</a></li>
-                <li><a href="#">Youtube</a></li>
-                <li><a href="#">LinkedIn</a></li>
-            </ul>
-        </div>
-        <div class="col col_13 no_margin_right">
-            <h4>About Us</h4>
-            <p>Roots Coffee is an online coffee shop that brings only renowed coffee brands direct from local producers
-                of the world bests coffee places.</p>
-        </div>
-
-        <div class="cleaner h40"></div>
-        <center>
-            Copyright © 2048 Roots Coffee | Designed by Filipe Morais</a>
-        </center>
-    </div>
-    <!-- END of footer -->
+            <!-- END of footer -->
 
 
-    <script type='text/javascript' src='js/logging.js'></script>
+            <script type='text/javascript' src='js/logging.js'></script>
 </body>
 
 </html>

@@ -86,11 +86,11 @@
         <div id="templatemo_menu" class="ddsmoothmenu">
             <ul>
                 <li><a href="index.php" class="selected">Home</a></li>
-                <li><a href="products.php">Products</a></li>
-                <li><a href="about.html">About</a></li>
-                <li><a href="faqs.html">FAQs</a></li>
-                <li><a href="checkout.html">Checkout</a></li>
-                <li><a href="contact.html">Contact</a></li>
+                <li><a>Products</a></li>
+                <li><a>About</a></li>
+                <li><a>FAQs</a></li>
+                <li><a>Checkout</a></li>
+                <li><a>Contact</a></li>
             </ul>
             <br style="clear: left" />
         </div>

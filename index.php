@@ -10,9 +10,6 @@
     <link rel="stylesheet" type="text/css" href="css/ddsmoothmenu.css" />
     <link rel="stylesheet" type="text/css" href="css/styles.css" />
 
-    <script type="text/javascript" src="js/jquery.min.js"></script>
-    <script type="text/javascript" src="js/ddsmoothmenu.js"></script>
-
     <?php
     include 'rootsdb.inc';
     session_start();

@@ -17,23 +17,13 @@
     session_start();
     $status = "";
     if (isset($_POST['action']) && $_POST['action'] == "remove") {
-        echo ("here1");
         if (!empty($_SESSION["shopping_cart"])) {
-            echo ("here2");
             $counter=0;
             foreach ($_SESSION["shopping_cart"] as $key) {
-                echo (" code=");
-                echo ($_POST["code"]);
-                echo (" key=");
-                echo ($key["code"]);
-                echo (" counter=");
-                echo($counter);
                 if ($_POST["code"] == $key["code"]) {
-                    echo ("here4");
                     unset($_SESSION["shopping_cart"][$counter]);
                     $status = "<div class='box' style='color:red;'>
       Product is removed from your cart!</div>";
-                    echo ($status);
                 }
                 $counter=$counter+1;
                 if (empty($_SESSION["shopping_cart"]))
@@ -189,9 +179,10 @@
                     </table>
                     <div style="float:right; width: 215px; margin-top: 20px;">
 
-                        <div class="checkout"><a href="checkout.html" class="more">Proceed to Checkout</a></div>
+                        <div class="checkout"><a href=<?php echo ("checkout.php?total_price=". $total_price) ?> class="more">Proceed to Checkout</a></div>
                         <div class="cleaner h20"></div>
-                        <div class="continueshopping"><a href="javascript:history.back()" class="more">Continue Shopping</a></div>
+                        <div class="checkout"><a href="index.php" class="more">Continue Shopping</a></div>
+                        <!-- <div class="continueshopping"><a href="javascript:history.back()" class="more">Continue Shopping</a></div> -->
 
                     </div>
 
